@@ -3,38 +3,40 @@ package startegie;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import geom.Graph;
-import geom.Sommet;
+
 
 public class GloutonH2 implements Strategie {
 
-    @Override
-    public Sommet choisir(Graph graph, List<Sommet> cycle) {
-        // TODO Auto-generated method stub
-        int current_cost = Integer.MAX_VALUE;
-        Sommet sol = null;
+    private int cost(int i, int j, int k, int[][] matrice)
+    {
+        return matrice[i][j] + matrice[j][k] - matrice[i][k];
+    }
 
-        Iterator<Sommet> last = cycle.iterator();
-        last.next();
-        Iterator<Sommet> first = cycle.iterator();
-        while(last.hasNext())
+    @Override
+    public Integer choisir(int[][] matrice, List<Integer> sol) 
+    {
+        int size = matrice.length;
+        ListIterator<Integer> l = sol.listIterator(size-1);
+        int last = l.previous();
+        int beforeLast = l.previous();
+        int bestCost = Integer.MAX_VALUE;
+        int vertex = -1;
+        for(int y = 0; y < size; y++)
         {
-            Sommet i = first.next();
-            Sommet k = last.next();
-            for(Sommet j : graph.getEnsembleSommetsLibres())
+            if(!sol.contains(y))
             {
-                int cout = graph.cout(i, j, k);
-                if( cout <= current_cost)
+                int tmpCost = this.cost(last, y, beforeLast, matrice);
+                if(tmpCost < bestCost)
                 {
-                    current_cost = cout;
-                    sol = j;
+                    tmpCost = bestCost;
+                    vertex = y;
                 }
             }
-
         }
-
-        return sol;
+        return vertex;
     }
     
 }

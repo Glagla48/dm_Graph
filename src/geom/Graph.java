@@ -1,54 +1,71 @@
 package geom;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import startegie.GloutonH1;
+import startegie.GloutonH2;
+import startegie.Strategie;
+import utils.Coordinate;
 
 public class Graph {
-    private HashSet<Sommet> ensembleSommets;
-    private HashSet<Arc> ensembleArcs;
-    private HashSet<Sommet> ensembleSommetsLibres;
 
-    public Graph(HashSet<Sommet> ensembleSommets, HashSet<Arc> ensembleArcs){
-        this.ensembleArcs = ensembleArcs;
-        this.ensembleSommets = ensembleSommets;
-        this.ensembleSommetsLibres = ensembleSommets;
-    }
-
-    public Graph()
-    {
-        this(new HashSet<>(), new HashSet<>());
-    }
-
-    public HashSet<Sommet> getEnsembleSommets() {return ensembleSommets;}
-
-    public void setEnsembleSommets(HashSet<Sommet> ensembleSommets) {this.ensembleSommets = ensembleSommets;}
-
-    public HashSet<Arc> getEnsembleArcs() {return ensembleArcs;}
-
-    public void setEnsembleArcs(HashSet<Arc> ensembleArcs) {this.ensembleArcs = ensembleArcs;}
-
-    public HashSet<Sommet> getEnsembleSommetsLibres() { return ensembleSommetsLibres; }
-
-    public void setEnsembleSommetsLibres(HashSet<Sommet> ensembleSommetsLibres) { this.ensembleSommetsLibres = ensembleSommetsLibres; }
-
-
-    public Arc getSpecificArcFromSommet(Sommet i, Sommet j)
-    {
-        for(Arc arc : ensembleArcs)
-        {
-            if(arc.isArc(i, j))
-                return arc;
-        }
-        return null;
-    }
+    private ArrayList<Coordinate> coord;
+    public final String name; 
+    private int[][] matrice;
     
-    public int cout(Sommet i, Sommet j, Sommet k)
+    
+    public Graph(ArrayList<Coordinate> coord, String name)
     {
-        Arc ij = this.getSpecificArcFromSommet(i, j);
-        Arc jk = this.getSpecificArcFromSommet(j, k);
-        Arc ik = this.getSpecificArcFromSommet(i, k);
-
-        return ij.getPoids() + jk.getPoids() - ik.getPoids();
+        this.coord = coord;
+        this.name = name;
+        this.initMatrice();
     }
+
+    private void initMatrice()
+    {
+        int size = this.coord.size();
+        this.matrice = new int[size][size];
+        Coordinate c1;
+        Coordinate c2;
+        for(int x  = 0; x < size - 1; x++)
+        {
+            c1 = this.coord.get(x);
+            for(int y = x + 1; y < size; y++)
+            {
+                c2 = this.coord.get(y);
+                this.matrice[x][y] = (int) Math.sqrt((c2.x - c1.x)^2 + (c2.y - c1.y)^2);
+            }
+        } 
+    }
+
+    public List<Integer> bestCycle(int strat)
+    {
+        
+        Strategie s;
+        if(strat == 1)
+            s = new GloutonH1();
+        else
+            s = new GloutonH2();
+
+        List<Integer> sol = new LinkedList<>();
+        sol.add(0);
+        sol.add(s.choisir(this.matrice, sol));
+        while(sol.size() < this.matrice.length)
+        {
+            sol.add(s.choisir(this.matrice, sol));
+        }
+
+        sol.add(0);
+        return new LinkedList<>(sol);
+    }
+
+    public ArrayList<Coordinate> getCoord() {return coord;}
+    public int getDim() {return this.coord.size();}
+    public int[][] getMatrice() {return this.matrice;}
+
+    public void setCoord(ArrayList<Coordinate> coord) {this.coord = coord;}
 }
 
     

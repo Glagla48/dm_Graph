@@ -40,11 +40,11 @@ public class ParserTSP {
             {
                 if(lineCount == 0)
                 {
-                    name = this.scanner.nextLine().split(":");
+                    name = this.scanner.nextLine().split(":")[1];
                 }
                 else if(lineCount == 3)
                 {
-                    dim = this.scanner.nextLine.split(":");
+                    dim = this.scanner.nextLine().split(":")[1];
                 }
                 else if(lineCount >= 7)
                 {
