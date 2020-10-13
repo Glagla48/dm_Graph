@@ -1,46 +1,55 @@
 package utils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ParserTSP extends Scanner{
+public class ParserTSP {
 
+    private Scanner scanner;
 
-    public ParserTSP(File f)
-    {
-        super(f);
+    public ParserTSP(File f) {
+        try {
+            this.scanner = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public ParserTSP(String path) 
     {
-        super(path);
+        try {
+            this.scanner = new Scanner(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public TSPFileCaracteristics getFileCaratceristics()
     {
         String name = "";
         int dim = 0; 
-        ArrayList<Coordinate> nodes = new ArrayList<>;
+        ArrayList<Coordinate> nodes = new ArrayList<>();
 
         int lineCount = 0;
 
         try {
-            while(super.hasNextLine())
+            while(this.scanner.hasNextLine())
             {
                 if(lineCount == 0)
                 {
-                    name = super.nextLine().split(":");
+                    name = this.scanner.nextLine().split(":");
                 }
                 else if(lineCount == 3)
                 {
-                    dim = super.nextLine.split(":");
-                    nodes = int[dim]
+                    dim = this.scanner.nextLine.split(":");
                 }
                 else if(lineCount >= 7)
                 {
-                    String[] line = super.nextLine().split(" ");
-                    nodes.append(new Coordinate(line[1], line[2])) ;
+                    String[] line = this.scanner.nextLine().split(" ");
+                    nodes.add(new Coordinate(Integer.parseInt(line[1]), Integer.parseInt(line[2]))) ;
                 }
                 lineCount++;
             }
@@ -52,5 +61,4 @@ public class ParserTSP extends Scanner{
         return new TSPFileCaracteristics(name, dim, nodes);
     }
 
-    public String 
 }
