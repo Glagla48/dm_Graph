@@ -60,10 +60,15 @@ public class ParserTSP {
 
         return new TSPFileCaracteristics(name, dim, nodes);
     }
-/*
+
     public static void main(String[] args){
         
+        ParserTSP p = new ParserTSP("../JeuxTest/a280.tsp");
 
-    }*/
+        TSPFileCaracteristics tfc = p.getFileCaratceristics();
+
+        tfc.toString();
+
+    }
 
 }
