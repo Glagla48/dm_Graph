@@ -16,4 +16,16 @@ public class TSPFileCaracteristics {
 
     }
     
+    @overide
+    public void toString(){
+
+        System.out.println("Nom du fichier TSP: " + this.name + System.line.separator() );
+        System.out.println("Dimension du fichier TSP: " + this.dim + System.line.separator());
+
+        System.out.println("Liste des nodes : " + System.line.separator());
+        for(Coordinate c : this.nodes){
+            System.out.println(c + System.line.separator());
+        }
+
+    }
 }
