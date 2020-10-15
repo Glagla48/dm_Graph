@@ -61,4 +61,8 @@ public class ParserTSP {
         return new TSPFileCaracteristics(name, dim, nodes);
     }
 
+    public main(){
+
+    }
+
 }
