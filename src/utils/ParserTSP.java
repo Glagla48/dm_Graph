@@ -44,7 +44,7 @@ public class ParserTSP {
                 }
                 else if(lineCount == 3)
                 {
-                    dim = this.scanner.nextLine().split(":")[1];
+                    dim = Integer.parseInt(this.scanner.nextLine().split(":")[1]);
                 }
                 else if(lineCount >= 7)
                 {
@@ -60,9 +60,10 @@ public class ParserTSP {
 
         return new TSPFileCaracteristics(name, dim, nodes);
     }
+/*
+    public static void main(String[] args){
+        
 
-    public main(){
-
-    }
+    }*/
 
 }
