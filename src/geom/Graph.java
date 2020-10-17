@@ -40,6 +40,22 @@ public class Graph {
         } 
     }
 
+    public int costCycle(List<Integer> cycle)
+    {
+        int cost = 0;
+        int total = 0;
+        for(int i = 0; i < cycle.size() -1 ; i++)
+        {
+            total = this.matrice[cycle.get(i)][cycle.get(i + 1)];
+            if(total == 0)
+            {
+                total = this.matrice[cycle.get(i + 1)][cycle.get(i)];
+            }
+            cost += total;
+        }
+        return cost;
+    }
+
     public List<Integer> bestCycle(int strat)
     {
         
