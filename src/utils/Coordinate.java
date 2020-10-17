@@ -16,6 +16,16 @@ public class Coordinate {
         return (int) Math.round(Math.sqrt(Math.pow(b.x-a.x, 2) + Math.pow(b.y - a.y, 2))); 
     }
 
+    @Override
+    public String toString(){
+
+        String a,b;
+
+        a = "x = " + this.x;
+        b = " et y = " + this.y;
+        
+        return a + b;
+    }
     
 }
 

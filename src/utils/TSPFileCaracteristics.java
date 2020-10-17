@@ -28,7 +28,7 @@ public class TSPFileCaracteristics {
             d = d + coord + System.lineSeparator();
         }
         
-        return a + b + c + d;
+        return a + b + c + d.toString();
 
     }
 }
