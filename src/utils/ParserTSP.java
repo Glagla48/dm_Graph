@@ -56,7 +56,7 @@ public class ParserTSP {
                     String[] numbers = pattern.split(line);
                     List<String> numbers_list = Arrays.stream(numbers).filter(s -> s.length() >= 1).collect(Collectors.toList());
                     //System.out.println(numbers_list.get(0));
-                    nodes.add(new Coordinate(Integer.parseInt(numbers_list.get(1)), Integer.parseInt(numbers_list.get(2)))) ;
+                    nodes.add(new Coordinate(Double.parseDouble(numbers_list.get(1)), Double.parseDouble(numbers_list.get(2)))) ;
                 }
                 else{this.scanner.nextLine();}
                 lineCount++;
@@ -71,7 +71,7 @@ public class ParserTSP {
 
     public static void main(String[] args){
         
-        ParserTSP p = new ParserTSP("./JeuxTests/a280.tsp");
+        ParserTSP p = new ParserTSP("./JeuxTests/ch150.tsp");
 
         TSPFileCaracteristics tfc = p.getFileCaratceristics();
 

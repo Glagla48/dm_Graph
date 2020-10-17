@@ -2,18 +2,18 @@ package utils;
 
 public class Coordinate {
 
-    public final int x;
-    public final int y;
+    public final double x;
+    public final double y;
 
-    public Coordinate(int x, int y)
+    public Coordinate(double x, double y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public static int getLengthFromCoordinates(Coordinate a, Coordinate b)   
+    public static double getLengthFromCoordinates(Coordinate a, Coordinate b)   
     {
-        return (int) Math.round(Math.sqrt(Math.pow(b.x-a.x, 2) + Math.pow(b.y - a.y, 2))); 
+        return (double) Math.round(Math.sqrt(Math.pow(b.x-a.x, 2) + Math.pow(b.y - a.y, 2))); 
     }
 
     @Override
