@@ -67,7 +67,7 @@ public class ParserTSP {
 
         TSPFileCaracteristics tfc = p.getFileCaratceristics();
 
-        tfc.toString();
+        System.out.println(tfc.toString());
 
     }
 
