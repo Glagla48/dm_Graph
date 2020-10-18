@@ -32,13 +32,15 @@ public class ParserTSP {
     public TSPFileCaracteristics getFileCaratceristics()
     {
         String name = "";
-        int dim = 0; 
+        int dim = 0;
+        int lineNode = 6; 
         ArrayList<Coordinate> nodes = new ArrayList<>();
 
         int lineCount = 0;
         final String regex = "\\s+";
 
         final Pattern pattern = Pattern.compile(regex);
+
         try {
             while(this.scanner.hasNextLine())
             {
@@ -46,17 +48,27 @@ public class ParserTSP {
                 {
                     name = this.scanner.nextLine().split(":")[1];
                 }
+                else if(lineCount == 1)
+                {
+                    if(this.scanner.nextLine().split(":").length < 2){
+                        lineNode = 8;
+                    }
+                }
                 else if(lineCount == 3)
                 {
                     dim = Integer.parseInt(this.scanner.nextLine().split(": ")[1]);
                 }
-                else if(lineCount >= 6)
+                else if(lineCount >= lineNode)
                 {
                     String line = this.scanner.nextLine();
                     String[] numbers = pattern.split(line);
                     List<String> numbers_list = Arrays.stream(numbers).filter(s -> s.length() >= 1).collect(Collectors.toList());
-                    //System.out.println(numbers_list.get(0));
-                    nodes.add(new Coordinate(Double.parseDouble(numbers_list.get(1)), Double.parseDouble(numbers_list.get(2)))) ;
+                    //System.out.println(numbers_list.get(2));
+                    //System.out.println(numbers.length);
+
+                    if(numbers.length == 3 || numbers.length == 4){
+                        nodes.add(new Coordinate(Double.parseDouble(numbers_list.get(1)), Double.parseDouble(numbers_list.get(2)))) ;
+                    }
                 }
                 else{this.scanner.nextLine();}
                 lineCount++;
@@ -71,7 +83,7 @@ public class ParserTSP {
 
     public static void main(String[] args){
         
-        ParserTSP p = new ParserTSP("./JeuxTests/ch150.tsp");
+        ParserTSP p = new ParserTSP("./JeuxTests/pr76.tsp");
 
         TSPFileCaracteristics tfc = p.getFileCaratceristics();
 
