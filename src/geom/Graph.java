@@ -63,13 +63,17 @@ public class Graph {
             edges.add(new Edge(i, i + 1, weight));
         }
 
-        int weight = this.matrice[l.get(0)][l.get(l.size() -1)];
-        if(weight <= 0)
+        if(!l.get(0).equals(l.get(l.size() -1)))
         {
-            weight = this.matrice[l.get(l.size() -1)][l.get(0)];
+            int weight = this.matrice[l.get(0)][l.get(l.size() -1)];
+            if(weight <= 0)
+            {
+                weight = this.matrice[l.get(l.size() -1)][l.get(0)];
+            }
+            
+            edges.add(new Edge(l.get(l.size() - 1), l.get(0), weight));
         }
-        
-        edges.add(new Edge(l.get(l.size() - 1), l.get(0), weight));
+       
 
         return edges;
     }
@@ -85,24 +89,51 @@ public class Graph {
     public int costCycle(List<Integer> cycle)
     {
         int cost = 0;
-        int total = 0;
+        int tmp = 0;
         for(int i = 0; i < cycle.size() -1 ; i++)
         {
-            total = this.matrice[cycle.get(i)][cycle.get(i + 1)];
-            if(total == 0)
+            tmp = this.matrice[cycle.get(i)][cycle.get(i + 1)];
+            if(tmp <= 0)
             {
                 //si this.matrice[cycle.get(i)][cycle.get(i + 1)] est sur le côté inférieur de la matrice
-                total = this.matrice[cycle.get(i + 1)][cycle.get(i)];
+                tmp = this.matrice[cycle.get(i + 1)][cycle.get(i)];
             }
-            cost += total;
+            cost += tmp;
         }
         System.out.println("size = " +cycle.size());
         return cost;
     }
 
+    public Integer closerToZero(int[][] matrice)
+    {
+        int vertex = 0;
+        int cost = Integer.MAX_VALUE;
+
+        for(int y = 1; y < matrice.length; y++)
+        {
+            int tmp = matrice[0][y];
+            if(tmp <= cost)
+            {
+                cost = tmp;
+                vertex = y;
+            }
+        }
+ 
+        return vertex;
+    }
+
+    private int cost(int i, int j, int k)
+    {
+        int c1 = this.matrice[i][j] > 0 ? this.matrice[i][j] : this.matrice[j][i];
+        int c2 = this.matrice[j][k] > 0 ? this.matrice[j][k] : this.matrice[k][j];
+        int c3 = this.matrice[i][k] > 0 ? this.matrice[i][k] : this.matrice[k][i];
+ 
+        return c1+ c2 - c3 ;
+    }
+
+
     public List<Integer> bestCycle(int strat)
     {
-        
         Strategie s;
         if(strat == 1)
             s = new GloutonH1();
@@ -111,13 +142,16 @@ public class Graph {
 
         List<Integer> sol = new LinkedList<>();
         sol.add(0);
-        sol.add(s.choisir(this.matrice, sol));
-        while(sol.size() < this.matrice.length)
+        sol.add(this.closerToZero(this.matrice)); 
+        sol.add(0);
+
+        while(sol.size() < this.matrice.length -1)
         {
-            sol.add(s.choisir(this.matrice, sol));
+            if(s.choisir(matrice, sol) == 0)
+                break;
         }
 
-        sol.add(0);
+
         return sol;
     }
 
@@ -127,7 +161,7 @@ public class Graph {
         List<Edge> edges = k.getARPMFromGraphMatrice(this.matrice);
         edges = k.doubleEdges(edges);
         List<Integer> edgesI = k.convertToListInteger(edges);
-        
+
         return edgesI.stream().distinct().collect(Collectors.toList());
     }
 

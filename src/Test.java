@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        String name = "eil51.tsp";
+        String name = "eil76.tsp";
         String path = "./JeuxTests/";
         if(args.length > 1)
             name = args[1];
@@ -49,12 +50,14 @@ public class Test {
 
         List<Integer> a2 = g.deuxApprox();
         List<Integer> a22 = g.deuxApprox2();
+        List<Integer> h2 = g.bestCycle(2);
         println(a2);
         println(a2.equals(a2.stream().distinct().collect(Collectors.toList())));
 
         println(a2.equals(a22));
-
-    
+        println(h2);
+        println("cout h = " + h2.size());
+        println("cout h2 = " + g.costCycle(h2));
         println("cout kruskal = " +k.getCostFromARPM(arpm));
         println("cout 2 approx = " + g.costCycle(a2));
         println("cout 2 approx2 = " + g.costCycle(a22));
