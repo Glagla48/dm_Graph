@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import startegie.GloutonH1;
 import startegie.GloutonH2;
@@ -126,16 +127,8 @@ public class Graph {
         List<Edge> edges = k.getARPMFromGraphMatrice(this.matrice);
         edges = k.doubleEdges(edges);
         List<Integer> edgesI = k.convertToListInteger(edges);
-
-        List<Integer> result = new ArrayList<>();
-        Set<Integer> vertex = new HashSet<>();
-        for(Integer i : edgesI)
-        {
-            if(!vertex.contains(i))
-                result.add(i);
-            vertex.add(i);
-        }
-        return result;
+        
+        return edgesI.stream().distinct().collect(Collectors.toList());
     }
 
     public List<Integer> deuxApprox2()

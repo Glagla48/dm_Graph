@@ -50,9 +50,9 @@ public class Test {
         List<Integer> a2 = g.deuxApprox();
         List<Integer> a22 = g.deuxApprox2();
         println(a2);
-        println(a2.stream().distinct().collect(Collectors.toList()));
-        println(a2 == a2.stream().distinct().collect(Collectors.toList()));
+        println(a2.equals(a2.stream().distinct().collect(Collectors.toList())));
 
+        println(a2.equals(a22));
 
     
         println("cout kruskal = " +k.getCostFromARPM(arpm));
