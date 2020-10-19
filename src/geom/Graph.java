@@ -174,9 +174,66 @@ public class Graph {
         return new ArrayList<>(new HashSet<>(edgesI));
     }
 
-    public List<Integer> deuxOpt(List<Integer> solGlouton)
+    public List<Edge> nouvCycle(Edge arete1,Edge arete2,List<Edge> cycleBase){
+        List<Edge> cycleNouveau = new ArrayList<>();
+        for(int i = 0; i<cycleBase.size()-1 ; i++){
+            if(cycleBase.get(i) == arete1){
+                cycleNouveau.add(arete2);
+            }
+            else if(cycleBase.get(i) == arete2){
+                cycleNouveau.add(arete1);
+            }
+            else{
+                cycleNouveau.add(cycleBase.get(i));
+            }
+        }
+        return cycleNouveau;
+    }
+
+    public List<Edge> Perm(List<Integer> s, Edge arete){
+        List<Integer> ss = new ArrayList<>();
+
+        for(int i=0;i<s.size()-1;i++)
+             ss.add(s.get(i));
+
+        ss.remove(arete.s1);
+        ss.remove(arete.s2);
+
+        List<Edge> liste = new ArrayList<>();
+        for(int si : ss){
+            for(int si2 : ss){
+                if(this.matrice[si][si2] > 0){
+                    liste.add(new Edge(si,si2, this.matrice[si][si2]));
+                }
+            }
+        }
+        return liste;
+    }
+
+    public List<Integer> deuxOpt(List<Integer> s)
     {
-        return null;
+        List<Edge> s2;
+        List<Integer> solution_tmp;
+
+        boolean changement = true;
+        while(changement == true){
+            changement = false;
+            solution_tmp = new ArrayList<>();
+            List<Edge> liste = this.getListEdgesFromCycle(s);
+            for(Edge arete1 : liste){
+                List<Edge> permut = Perm(s,arete1);
+                for(Edge arete2 : permut){
+                    s2 = this.nouvCycle(arete1, arete2, liste);
+                    if(costCycleEdges(s2) < costCycle(solution_tmp)){
+                        Kruskal K = new Kruskal();
+                        solution_tmp = K.convertToListInteger(s2);
+                        changement = true;
+                    }
+                }
+            }
+            s = solution_tmp;
+        }
+        return s;
     }
 
     public List<Coordinate> getCoord() {return coord;}
