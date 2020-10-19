@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
 import java.util.stream.Collectors;
 
 import startegie.GloutonH1;
@@ -100,7 +100,7 @@ public class Graph {
             }
             cost += tmp;
         }
-        System.out.println("size = " +cycle.size());
+
         return cost;
     }
 
@@ -161,7 +161,6 @@ public class Graph {
         List<Edge> edges = k.getARPMFromGraphMatrice(this.matrice);
         edges = k.doubleEdges(edges);
         List<Integer> edgesI = k.convertToListInteger(edges);
-        System.out.println("converted to list :" + System.lineSeparator() + edgesI);
 
         return edgesI.stream().distinct().collect(Collectors.toList());
     }

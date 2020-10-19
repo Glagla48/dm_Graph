@@ -1,9 +1,8 @@
 package startegie;
 
-import java.util.HashSet;
 import java.util.List;
 
-import geom.Graph;
+
 
 public interface Strategie {
     /**

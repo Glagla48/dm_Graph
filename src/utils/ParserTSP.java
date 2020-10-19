@@ -63,8 +63,7 @@ public class ParserTSP {
                     String line = this.scanner.nextLine();
                     String[] numbers = pattern.split(line);
                     List<String> numbers_list = Arrays.stream(numbers).filter(s -> s.length() >= 1).collect(Collectors.toList());
-                    //System.out.println(numbers_list.get(2));
-                    //System.out.println(numbers.length);
+                    
 
                     if(numbers.length == 3 || numbers.length == 4){
                         nodes.add(new Coordinate(Double.parseDouble(numbers_list.get(1)), Double.parseDouble(numbers_list.get(2)))) ;

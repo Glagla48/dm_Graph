@@ -1,11 +1,9 @@
 package startegie;
 
-import java.util.HashSet;
+
 import java.util.List;
 
 
-import startegie.Strategie;
-import geom.Graph;
 
 public class GloutonH1 implements Strategie {
 
