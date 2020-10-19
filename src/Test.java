@@ -19,7 +19,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        String name = "eil76.tsp";
+        String name = "test.tsp";
         String path = "./JeuxTests/";
         if(args.length > 1)
             name = args[1];
@@ -33,20 +33,9 @@ public class Test {
         int[][] matrice = g.getMatrice();
         List<Edge> arpm = k.getARPMFromGraphMatrice(matrice);
 
-        println(arpm.size());
+        println(arpm.size() + " ARPM:");
+        println(arpm);
         
-        KruskalHelper k1 = new KruskalHelper(1);
-        KruskalHelper k2 = new KruskalHelper(2);
-        println(k1.equals(k2));
-        println(k.find(k1).equals(k.find(k2)));
-        println(k.find(k1).equals(k1));
-
-        k2.setParent(k1);
-        KruskalHelper k2P = k.find(k2);
-        k2P.setRank(100);
-
-        println( k2P.getRank() == k1.getRank());
-
 
         List<Integer> a2 = g.deuxApprox();
         List<Integer> a22 = g.deuxApprox2();

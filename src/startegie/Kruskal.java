@@ -29,7 +29,6 @@ public class Kruskal {
                     s1 = s1 ^ s2 ^ (s2 = s1);
                 }
                 edges.add(new Edge(s1, s2, weight));
-                
             }
         }
         return edges;
@@ -97,10 +96,8 @@ public class Kruskal {
             KruskalHelper s2 = this.findHelper(kh, e.s2);
             if(!this.find(s1).equals(this.find(s2)))
             {
-            
                 arpm.add(e);
-                this.union(s1, s2);
-                
+                this.union(s1, s2);  
             }
         }
 

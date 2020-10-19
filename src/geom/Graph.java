@@ -145,7 +145,7 @@ public class Graph {
         sol.add(this.closerToZero(this.matrice)); 
         sol.add(0);
 
-        while(sol.size() < this.matrice.length -1)
+        while(sol.size() < this.matrice.length +1)
         {
             if(s.choisir(matrice, sol) == 0)
                 break;
@@ -161,6 +161,7 @@ public class Graph {
         List<Edge> edges = k.getARPMFromGraphMatrice(this.matrice);
         edges = k.doubleEdges(edges);
         List<Integer> edgesI = k.convertToListInteger(edges);
+        System.out.println("converted to list :" + System.lineSeparator() + edgesI);
 
         return edgesI.stream().distinct().collect(Collectors.toList());
     }
