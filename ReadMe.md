@@ -1,5 +1,7 @@
 # DM GRAPH
 
+Exploration de noeuds avec deux algorithmes gloutons et un algorithme de Kruskal
+
 
 ## Nettoyage:
 Avec ant:
